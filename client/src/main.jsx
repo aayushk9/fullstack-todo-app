@@ -4,7 +4,8 @@ import './index.css'
 import App from './App.jsx'
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <App />
+  // handles all the updates if made in react
+  <StrictMode> 
+    <App />  
   </StrictMode>,
 )
