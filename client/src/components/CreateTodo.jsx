@@ -1,7 +1,11 @@
 import { useState } from "react";
-export function CreateTodo(){
+import { Todos } from "./Todos";
+
+export function CreateTodo(props){
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
+
+
     return (
         <div>
             <input id="title" style={{
@@ -21,15 +25,25 @@ export function CreateTodo(){
             }}/><br/>   
 
             <button onClick={async() => {
-                const data = await fetch("http://localhost:3000/getTodos", {
-                  method: "POST",
+                fetch("http://localhost:3000/getTodos", {
+                  method: "POST",  
                   body: JSON.stringify({
                      title: title,
                      description: description
-                  })
-                });
-                const res = await data.json();
-                alert("todo added")
+                  }),
+                 headers: {
+                    "Content-type": "application/json"
+                 }
+                })
+                .then(async function(res){
+                    const json = await res.json();
+                    alert("todo added")
+                })
+
+                props.setTodos([...todos,      
+                    title,
+                    description
+                ])
             }}>Add a todo</button>
         </div>
     )
